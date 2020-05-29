@@ -1,0 +1,59 @@
+﻿//app user story
+
+//this app will serve as an online consultation platform for hospitals
+
+//it will have the following sections
+   -- admin dashboard
+  
+   -- home page where user can sign up with the following details
+            -- firstname, lastname, email, password  --- using Identity
+            when user signs up, it sends a verification email which user then clicks and gets verified to login
+            when user logs in, he gets redirected to page where he can select the type of specialist he wants to consult
+            eg, doctor, pharmacist
+                    --when user clicks on 'consult' button, a consultatio form opens
+                            --fields -- firstname, lastname, email, phone, address, patientId, age, gender, problem, remark (should have a default of null),
+                            appointment status (pending by default)
+   
+   --admin can do the following
+        --create new user and assign roles (admin, consultant)
+          --input fields - same as normal user
+        --patients crud --- patients are people who have booked an appointment at least once
+                --input fields -- firstname, lastname, email, phone, address, patientId, age, gender, problem, remark (should have a default of null),
+                            appointment status (pending by default)
+
+        flow
+                
+                patient login --
+                patient is redirected to page to select type of professional to consult (doctor, pharmacist, gynaecologist, etc)
+                --note-- this will be created dynamcally from backend
+                patient clicks on particular category to consult, a form appears for user to fill (patient form)
+                patient can also view all professionals within that category (name, profile, poicture) --from consultants form
+                request drops at admin backend -- if doctor, it drops in 
+                admin views rquest, makes arrangement with a consultant who then gets abck to you gets back to you via email
+                -----consultant logs in, goes to 'appointment' requests
+                        -- a button will say 'schedule appointment', it will open a form to send an email to patient with appointment details
+                         --- time, date, medium (skype, zoom, call), fee, and button to confirm and pay for appointment
+                         --if user is not ok with schedule, he reverts via email with prefered time
+                         -- if he is ok, he clicks on confirm appointment
+     
+     
+    
+    AUTH FEATURES
+
+    --login
+    --signup -- with email verification
+    --forgot/reset password --using email
+    --logout
+
+
+    HOME PAGE FEATURES
+    --landing page with image background
+    --signup and login buttons
+    -- no information 
+
+    ON LOGIN  -- DISPLAY SECTION
+    -- 
+
+     OTHERS FEATURES
+
+     error logging
