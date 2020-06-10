@@ -276,27 +276,49 @@ namespace EHealthConsult.Controllers
         
         //uncle bob
         [HttpGet("getimage/{id}")]
+        //[HttpGet("getimage")]
         public async Task<IActionResult> GetConsultantImage(int Id)
         {
             try
             {
+                string fileExtension = "";
                 var consultant = await _repoWrapper.Consultants.GetConsultantByIdAsync(Id);
                 if(consultant == null)
                 {
-                    return NotFound(new { message = "no rescord found" });
+                    return NotFound(new { message = "No record found" });
                 }
-                //get name of profile picture
+                //get file name of profile picture 
                 string profilePictureFileName = consultant.ProfilePicture;
-                 
-                //locate the image with that name in the images folder
-                //var filePath = Path.Combine("Uploads/Images", uniqueFileName);
+                //image path
                 string imagePath = Path.Combine("Uploads/Images", profilePictureFileName);
-               // string files = PhysicalFile(imagePath, "image/jpeg");
-               //string imageUrl = "http://localhost:5000/" + imagePath;
-                //http://localhost:5000/api/Uploads/Images\c4495f2c-f6af-43fe-baa2-7eee501138e1person.jpg
+                //file extension
+                string extension = Path.GetExtension(imagePath).TrimStart('.');
 
-               // string finalPath = imageUrl.Replace(" \\ ", "/");
-                return Ok();
+                //note, only 'jpeg' and 'png' extensions can be rendered, 'jpg' will return gibberish characters
+
+                if(extension == "jpeg")
+                {
+                    fileExtension = "jpeg";
+                }
+                if(extension == "jpg")
+                {
+                    fileExtension = "jpeg";
+                }
+                if(extension == "png")
+                {
+                    fileExtension = "png";
+                }
+
+                Byte[] b = System.IO.File.ReadAllBytes(imagePath);   
+                // You can use your own method over here.         
+                return File(b, "image/"+fileExtension);
+                //return File(b, "image/jpeg");
+                //use video/mp4 for video files
+                //returns a blob
+                //concat extension
+                //use blob parser on frontend, 
+                //browser can't read blob
+
             }
             catch (Exception)
             {

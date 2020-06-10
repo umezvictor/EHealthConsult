@@ -22,9 +22,13 @@ namespace EHealthConsult.Repository.RepositoryClasses
             _dbContext.Set<T>().Add(entity);
         }
 
+
+        //for delete, I changed the approach
+        //i am not deleting any record, but simply set isdeleted to true via update
         public void Delete(T entity)
         {
-            _dbContext.Set<T>().Remove(entity);
+            _dbContext.Set<T>().Update(entity);
+           // _dbContext.Set<T>().Remove(entity);
         }
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
@@ -44,3 +48,5 @@ namespace EHealthConsult.Repository.RepositoryClasses
         }
     }
 }
+
+

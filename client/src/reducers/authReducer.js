@@ -1,6 +1,6 @@
-//import isEmpty from './validation/is-empty';
+import isEmpty from '../validation/is-empty';
 import {SET_CURRENT_USER} from '../actions/types';
-import { isCompositeComponentWithType } from 'react-dom/test-utils';
+
 
 
 
@@ -19,7 +19,7 @@ export default function(state = initialState, action){
         case SET_CURRENT_USER: //uses this to identify the action that took place
             return{
                 ...state, //return current sstate
-                isAuthenticated: (action.payload),
+                isAuthenticated: !isEmpty(action.payload),
                 user: action.payload
             }
         default:

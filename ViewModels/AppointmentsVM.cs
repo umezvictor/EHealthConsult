@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EHealthConsult.Models
+namespace EHealthConsult.ViewModels
 {
-    public class Appointment
+    public class AppointmentsVM
     {
-        //
-        [Key]
-        public int Id { get; set; } //patiednt id
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
@@ -21,14 +18,11 @@ namespace EHealthConsult.Models
         public string DateOfBirth { get; set; }
 
         public string Status { get; set; }
-
         public string Complaint { get; set; }
+
         public DateTime RequestDate { get; set; }
         public string ReferenceNumber { get; set; }
 
-        public DateTime AppointmentDate { get; set; }
-
-        public bool isDeleted { get; set; }
 
 
 

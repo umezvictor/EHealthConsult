@@ -11,29 +11,30 @@ import {signupUser} from '../../actions/authActions';
 
 
 
-const Signup = (props) => {
+  const Signup = (props) => {
 
   const [FirstName, setFirstName] = useState("");
   const [LastName, setLastName] = useState("");
   const [Password, setPassword] = useState("");
+  const [ConfirmPassword, setConfirmPassword] = useState("");
   const [Email, setEmail] = useState("");
 
 
   const handleSubmit = (e) => {
     //destructure e.target.name and e.target.value
    e.preventDefault();
-   //console.log("submitted");
-   //console.log(FirstName);
+  
    const newUser = {
-     FirstName: FirstName,
-     LastName: LastName,
-     Email: Email,
-     Password: Password
+      Email: Email,
+      Password: Password,
+      ConfirmPassword: ConfirmPassword,
+      FirstName: FirstName,
+      LastName: LastName  
    };
 
    //register user
    //console.log(newUser);
-   props.signupUser(newUser);
+   props.signupUser(newUser, props.history);
   }
   return(
     <Form onSubmit={handleSubmit}>
@@ -61,6 +62,11 @@ const Signup = (props) => {
     <Form.Control type="password" onChange={e => setPassword(e.target.value)} name="Password" placeholder="Password" />
   </Form.Group>
   
+  <Form.Group controlId="formBasicPassword">
+    <Form.Label>Confirm Password</Form.Label>
+    <Form.Control type="password" onChange={e => setConfirmPassword(e.target.value)} name="ConfirmPassword" placeholder="Password" />
+  </Form.Group>
+
   <Button variant="primary" type="submit">
     Submit
   </Button>

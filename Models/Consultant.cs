@@ -25,5 +25,7 @@ namespace EHealthConsult.Models
         public string ZoomId { get; set; }
         public string SkypeId { get; set; }
 
+        public bool isDeleted { get; set; }
+
     }
 }

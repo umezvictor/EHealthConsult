@@ -44,6 +44,8 @@
     --signup -- with email verification
     --forgot/reset password --using email
     --logout
+    --role management
+    --e
 
 
     HOME PAGE FEATURES
@@ -57,3 +59,16 @@
      OTHERS FEATURES
 
      error logging
+
+     patient requests for appointment -- email is sent to patient
+     patient pays ford consultation
+     clinic receives request and sends a mail to patient with potential appointment schedule
+     the patient and consultant reach agreement on  via email
+     appointment is confirmed
+     --payment can also take place at this point--optional
+     --appointment 
+
+
+
+     fetures
+     email functionality

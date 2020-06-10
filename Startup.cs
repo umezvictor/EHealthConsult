@@ -7,6 +7,8 @@ using AutoMapper;
 using EHealthConsult.Models;
 using EHealthConsult.Repository.Interface;
 using EHealthConsult.Repository.RepositoryClasses;
+using EHealthConsult.Services;
+using EHealthConsult.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -52,6 +54,8 @@ namespace EHealthConsult
 
             //repository wrapper -- handles all crud functionality
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            //email service
+            services.AddScoped<IEmailService, EmailService>();
 
             //automapper
             services.AddAutoMapper(typeof(Startup));
@@ -79,12 +83,27 @@ namespace EHealthConsult
                              };
                          });
 
+            //CORS
+            /*
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
+            */
+            services.AddCors();
+
             services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //cors
+            app.UseCors(options => 
+            options.WithOrigins("http://localhost:3002")
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -95,7 +114,7 @@ namespace EHealthConsult
             app.UseRouting();
 
             app.UseAuthorization();
-
+           
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

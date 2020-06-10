@@ -13,6 +13,8 @@ namespace EHealthConsult.Models
         {
             CreateMap<ConsultantsVM, Consultant>()
                 .ReverseMap();
+            CreateMap<AppointmentsVM, Appointment>()
+               .ReverseMap();
         }
     }
 }

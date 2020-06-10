@@ -22,9 +22,18 @@ namespace EHealthConsult.Repository.RepositoryClasses
 
         public void DeleteAppointment(Appointment appointment)
         {
+            //Delete method here actually performs an update
             Delete(appointment);
         }
 
+        //return all appointments using isDeleted as the conndition
+        public async Task<IEnumerable<Appointment>> GetAllAppointmentsByDeleteStatus(bool status)
+        {
+            return await FindByCondition(appointment => appointment.isDeleted.Equals(status)).ToListAsync();
+         
+        }
+
+        //get all appointments where isDeleted = false or true
         public async Task<IEnumerable<Appointment>> GetAllAppointmentsAsync()
         {
             return await GetAll().ToListAsync();
@@ -38,6 +47,10 @@ namespace EHealthConsult.Repository.RepositoryClasses
         public async Task<Appointment> GetAppointmentByIdAsync(int Id)
         {
             return await FindByCondition(appointment => appointment.Id.Equals(Id)).FirstOrDefaultAsync();
+        }
+        public async Task<Appointment> GetAppointmentByReferenceAsync(string referenceNumber)
+        {
+            return await FindByCondition(appointment => appointment.ReferenceNumber.Equals(referenceNumber)).FirstOrDefaultAsync();
         }
 
         public void UpdateAppointment(Appointment appointment)
