@@ -30,7 +30,6 @@ namespace EHealthConsult.Controllers
         }
 
 
-
         [HttpGet]
         public async Task<IActionResult> GetActiveAppointments()
         {
@@ -101,11 +100,12 @@ namespace EHealthConsult.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> CreateAppointment([FromBody]AppointmentsVM appointment)
+        [HttpPost("{id}")]
+        public async Task<IActionResult> CreateAppointment(int id, [FromBody]AppointmentsVM appointment)
         {
             try
             {
+                
                               
                 if (appointment == null)
                 {
@@ -117,10 +117,29 @@ namespace EHealthConsult.Controllers
                     return BadRequest(new { errorMessage = "Invalid model" });
                 }
 
+                //takes in consultantid -
+                //find the consultant which the client is requesting an appointment with
+                //send email to the consultant
+                var consultant = await _repoWrapper.Consultants.GetConsultantByIdAsync(id);
+                if (consultant == null) return BadRequest(new { message = "no matching consultant record found" });
+
+                //get consultant email
+                string consultantEmail = consultant.Email;
+                //build email 
+                //string subject = "Request for Appointment";
+                //string messageToConsultant = $"{appointment.FirstName}  {appointment.LastName} has requested to have an appointment with you";
+
+               
+
                 //generate random reference number for each appointment
                 appointment.ReferenceNumber = GenerateRandomNumber(10);
                 appointment.RequestDate = DateTime.Now;
                 appointment.Status = "pending";
+
+                //message body for patient -- 
+                //string messageToPatient = $"Your request has been received, {consultant.FirstName} {consultant.LastName} will contact you shortly. " +
+                    //$"your reference number is {appointment.ReferenceNumber}";
+
 
                 var newAppointment = _mapper.Map<Appointment>(appointment);
 
@@ -129,6 +148,12 @@ namespace EHealthConsult.Controllers
 
                 _repoWrapper.Appointments.CreateAppointment(newAppointment);
                 await _repoWrapper.SaveAsync();
+
+                //send email to consultant
+                //_emailService.SendEmail(consultantEmail, subject, messageToConsultant);
+
+                //send mail to client
+                //_emailService.SendEmail(appointment.Email, subject, messageToPatient);
                
                 return Created($"/api/appointments/{newAppointment.Id}", newAppointment);
 

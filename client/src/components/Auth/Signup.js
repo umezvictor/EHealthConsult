@@ -82,7 +82,7 @@ Signup.propTypes = {
 
 //map state (i.e the state in the store) to the 'props' of this component
 const mapStateToProps = (state) => ({
-  authentication: state.auth //map this.props.authenctication (of this component) to state.auth - ref to authReducer in reducer/index.js
+  auth: state.auth //map this.props.authenctication (of this component) to state.auth - ref to authReducer in reducer/index.js
   //this is accessible via this.props.authentication 
 });
 

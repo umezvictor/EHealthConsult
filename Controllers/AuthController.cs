@@ -80,7 +80,7 @@ namespace NexusBankApi.Controllers
             }
 
         }
-
+ 
 
         //POST api/account/login
         [HttpPost("login")]
@@ -94,8 +94,13 @@ namespace NexusBankApi.Controllers
                 {
                     var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
+                    //get user details
+
                     if (result.Succeeded)
                     {
+                        //get user details
+                        var user = await userManager.FindByEmailAsync(model.Email);
+
                         //jwt token generation
                         //token can be generated without any configuration in startup.cs
                         //config in startup.cs is needed for specifying that the token will be used for authentication
@@ -117,28 +122,38 @@ namespace NexusBankApi.Controllers
                         //we are creating  the JwtSecurityToken object with some important parameters:
 
                         //user claims
-                        var claim = new[]
-                        {
-                            new Claim(ClaimTypes.Email, model.Email) //email will be hidden inside token
-                        };
+                        
+                        var claims = new List<Claim>();
 
+                        claims.Add(new Claim("Id", user.Id));
+                        claims.Add(new Claim("Email", user.Email));
+                        claims.Add(new Claim("FirstName", user.FirstName));
+                        claims.Add(new Claim("LastName", user.LastName));
+                        //public JwtSecurityToken(JwtHeader header, JwtPayload payload);
+                        var myJwtHeader = new JwtHeader(signinCredentials);
+                        var payload = new JwtPayload(claims);
+                        var tokenOptions = new JwtSecurityToken(myJwtHeader, payload);
+
+                        /*
                         var tokeOptions = new JwtSecurityToken(
                             //Issuer: The first parameter is a simple string representing the name of the web server that issues the token
-                            issuer: config.GetSection("JwtSettings:Issuer").Value,
-
+                           // issuer: config.GetSection("JwtSettings:Issuer").Value,
+                           
                             // Audience: a string value representing valid recipients
-                            audience: config.GetSection("JwtSettings:Audience").Value,
+                            //audience: config.GetSection("JwtSettings:Audience").Value,
                             //Claims: a list of user roles, for example, the user can be an admin, author
-                            claims: claim,
+                            //claims: claim,
                             //represents the date and time after which the token expires
                             expires: DateTime.Now.AddDays(1),//expires after 1 day - 24hrs
                             signingCredentials: signinCredentials
                         );
+
+                        */
                         // we create a string representation of JWT by calling the WriteToken method on JwtSecurityTokenHandler.
-                        var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+                        var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
 
                         //returning JWT in a response
-                        return Ok(new { token = tokenString });
+                        return Ok(new { token = "Bearer " + tokenString });
 
 
 
@@ -156,6 +171,7 @@ namespace NexusBankApi.Controllers
         }
 
        
+        //endpoint not in use presently
         //POST api/auth/logout
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()

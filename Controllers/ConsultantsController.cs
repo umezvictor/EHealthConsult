@@ -33,7 +33,7 @@ namespace EHealthConsult.Controllers
         // read create, update    delete
         [HttpGet]
         public async Task<IActionResult> GetConsultants()
-        {
+         {
             try
             {
                 var consultants = await _repoWrapper.Consultants.GetAllConsultantsAsync();
@@ -78,7 +78,7 @@ namespace EHealthConsult.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateConsultant([FromForm]ConsultantsVM consultant)
+        public async Task<IActionResult> CreateConsultant([FromBody]ConsultantsVM consultant)
         {
             try
             {
@@ -219,7 +219,7 @@ namespace EHealthConsult.Controllers
         }
 
 
-        //upload profile pics via separate api
+        //update profile pics of consultant via separate api
         [HttpPut("{id}")] 
         public async Task<IActionResult> UpdateProfilePicture(int Id, [FromForm]UpdateProfilePicsVM profilePicsVM)
         {
@@ -247,7 +247,7 @@ namespace EHealthConsult.Controllers
                 }
 
                 Guid uniqueFileId = Guid.NewGuid();
-
+                //create unique file name for each image, replace spaces with underscore
                 var uniqueFileName = uniqueFileId + profilePicture.FileName.Replace(" ", "_");
           
                 var filePath = Path.Combine("Uploads/Images", uniqueFileName);
@@ -274,9 +274,8 @@ namespace EHealthConsult.Controllers
         }
 
         
-        //uncle bob
+        //returns a consultant's image
         [HttpGet("getimage/{id}")]
-        //[HttpGet("getimage")]
         public async Task<IActionResult> GetConsultantImage(int Id)
         {
             try
@@ -289,9 +288,9 @@ namespace EHealthConsult.Controllers
                 }
                 //get file name of profile picture 
                 string profilePictureFileName = consultant.ProfilePicture;
-                //image path
+                //create image path
                 string imagePath = Path.Combine("Uploads/Images", profilePictureFileName);
-                //file extension
+                //get file extension
                 string extension = Path.GetExtension(imagePath).TrimStart('.');
 
                 //note, only 'jpeg' and 'png' extensions can be rendered, 'jpg' will return gibberish characters
@@ -323,7 +322,7 @@ namespace EHealthConsult.Controllers
             catch (Exception)
             {
                 return this.StatusCode(500);
-            }
+            } 
 
         }
 

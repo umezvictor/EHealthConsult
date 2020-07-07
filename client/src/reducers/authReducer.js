@@ -18,9 +18,9 @@ export default function(state = initialState, action){
     switch(action.type){
         case SET_CURRENT_USER: //uses this to identify the action that took place
             return{
-                ...state, //return current sstate
-                isAuthenticated: !isEmpty(action.payload),
-                user: action.payload
+                ...state, //return current state
+                isAuthenticated: !isEmpty(action.payload), //check if user paayload is empty or not
+                user: action.payload   //the payload is a n object with the decoded user from authaction --setcurrentuser
             }
         default:
             return state; 

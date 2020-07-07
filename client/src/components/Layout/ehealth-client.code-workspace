@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "..\\..\\.."
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\..\\Desktop\\RaveTest"
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}

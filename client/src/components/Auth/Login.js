@@ -4,7 +4,7 @@ import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 //connect connects your componen to the store that wad provided by the Provider component
 import {connect} from 'react-redux';
-import {useState, useffect} from 'react';
+import {useState, useEffect} from 'react';
 //import action
 import {loginUser} from '../../actions/authActions';
 
@@ -25,7 +25,16 @@ const Login = (props) => {
     props.loginUser(userCredentials);
 
   }
-  
+
+  //redirect to home page if login is successful 
+  useEffect(() => {
+   if(props.auth.isAuthenticated){
+     //console.log(props.auth.user);
+     props.history.push('/home');
+     //console.log(props.auth.user);
+   }
+  });
+
   return(
     <Form onSubmit={handleSubmit}>
     <Form.Group controlId="formBasicEmail">
@@ -54,7 +63,7 @@ Login.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  authentication: state.auth
+  auth: state.auth  //points to auth property in index.js reducers --combines all reducers// sccessible via props.auth
 });
 
 export default connect(mapStateToProps, {loginUser})(withRouter(Login));

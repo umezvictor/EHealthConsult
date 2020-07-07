@@ -1,0 +1,22 @@
+home page with video background
+user signup/logs in
+email is sent to uset to activate his account
+user logs in
+a new page displays list of consultants + image and book appointment button -- use cards
+user clicks on book appointment
+fills and submits form
+redirect to payment page -- notification email is sent
+admin  receives request -- admin dashboard
+admin sennds email to patient and confirms appointment date an time
+admin updates appointment and sets appoiintment date
+reminder is sent via email on due date -- sms optional
+
+
+//appointment medium -- video chat using opentok
+user logs in and clicks on 'enter consultation room'
+opens a form for user to enter appointment reference number -- verifies appointment date and payment status
+user is looged into video chat room and starts appointment
+doctor takes notes and clicks on 'create file' an enters patients problem and symptoms
+he sends patient some info on what to do via chat and email - eg run a test
+customer can later login, register and pay for test and then go for test physically
+when patient is cured, consultant updates the patient file and appointment records to show case closed 

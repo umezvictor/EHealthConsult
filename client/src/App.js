@@ -1,25 +1,33 @@
 import React from 'react';
-import Navbar from './components/Layout/Navbar';
-import Body from './components/Layout/Body';
+import Navigation from './components/Layout/Navigation';
+//import Body from './components/Layout/Body';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import {Provider} from 'react-redux';//this is the binding between react and redux
 import store from './store';
 
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
-
+import Index from './components/Layout/Index';
+import Appointment from './components/Layout/Appointment';
+import Payment from './components/Layout/Payment';
+import Consultants from './components/Layout/Consultants';
+import CreateConsultant from './components/Layout/CreateConsultant';
 
 function App() {
   return (
     <Provider store={store}>
       <Router>
         <div className="App">
-          <Navbar />
+          <Navigation />
           
           <Route exact path="/"  />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
-          
+          <Route exact path="/appointment" component={Appointment} />
+          <Route exact path="/consultants" component={Consultants} />
+          <Route exact path="/addConsultant" component={CreateConsultant} />
+          <Route exact path="/home" component={Index} />
+          <Route exact path="/payment" component={Payment} />
         </div>
     </Router>
     </Provider>

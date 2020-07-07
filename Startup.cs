@@ -83,13 +83,7 @@ namespace EHealthConsult
                              };
                          });
 
-            //CORS
-            /*
-            services.AddCors(c =>
-            {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
-            });
-            */
+         //cors
             services.AddCors();
 
             services.AddControllers();
@@ -100,7 +94,7 @@ namespace EHealthConsult
         {
             //cors
             app.UseCors(options => 
-            options.WithOrigins("http://localhost:3002")
+            options.WithOrigins("http://localhost:3001")
             .AllowAnyHeader()
             .AllowAnyMethod());
 
