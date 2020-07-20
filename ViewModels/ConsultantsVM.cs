@@ -20,8 +20,8 @@ namespace EHealthConsult.ViewModels
         public string Phone { get; set; }
 
         public string Profession { get; set; }
-        public IFormFile ProfilePicture { get; set; }
-        //public string ZoomId { get; set; }
-       // public string SkypeId { get; set; }
+        public string ProfilePicture { get; set; }
+        public string ZoomId { get; set; }
+       public string SkypeId { get; set; }
     }
 }

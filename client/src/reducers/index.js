@@ -8,6 +8,4 @@ export default combineReducers({
     auth: authReducer, //accessible via state.auth
     appointment: appointmentReducer,
     consultant: consultantReducer
-    //error: errorReducer,
-    //customers: patientsReducer
 });

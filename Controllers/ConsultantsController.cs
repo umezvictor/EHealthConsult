@@ -65,10 +65,11 @@ namespace EHealthConsult.Controllers
                 {
                     return NotFound(new { message = "no record found" });
                 }
-                else
-                {
-                    return Ok(consultant);
-                }
+
+                Logger.writeErrorLog("test successful");
+
+                return Ok(consultant);
+              
             }
             catch (Exception)
             {
@@ -78,13 +79,13 @@ namespace EHealthConsult.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateConsultant([FromBody]ConsultantsVM consultant)
+        public async Task<IActionResult> CreateConsultant([FromForm]ConsultantsVM consultant)
         {
             try
             {
                 //check if profile picture is present
-                var profilePicture = consultant.ProfilePicture;
-                if (profilePicture.Length <= 0) return BadRequest(new { errorMessage = "Profile picture must be uploaded" });
+               // var profilePicture = consultant.ProfilePicture;
+               // if (profilePicture.Length <= 0) return BadRequest(new { errorMessage = "Profile picture must be uploaded" });
 
 
 
@@ -111,32 +112,42 @@ namespace EHealthConsult.Controllers
 
 
                 //give the file a unique id
-                Guid uniqueFileId = Guid.NewGuid();
+               // Guid uniqueFileId = Guid.NewGuid();
 
                 //give file a unique name to prevent overwriting
-                var uniqueFileName = uniqueFileId + profilePicture.FileName.Replace(" ", "_");//replace spaces with underscore
+                //var uniqueFileName = uniqueFileId + profilePicture.FileName.Replace(" ", "_");//replace spaces with underscore
 
                 //specify folder to save uploaded files
-                var filePath = Path.Combine("Uploads/Images", uniqueFileName);
+               // var filePath = Path.Combine("Uploads/Images", uniqueFileName);
 
                 //this works, but saves file inside server, not a specific folder
                 // using(var fileStream = new FileStream(profilePicture.FileName, FileMode.Create))
 
                 //save profile picture
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await profilePicture.CopyToAsync(fileStream);
-                }
+               // using (var fileStream = new FileStream(filePath, FileMode.Create))
+                //{
+                  //  await profilePicture.CopyToAsync(fileStream);
+                //}
 
                 //map incoming customer object of CustomerCreationDto to the Customer model class
                 var consultantEntity = _mapper.Map<Consultant>(consultant);
 
 
                 //add the unique filename to customerentity object and save to db
-                consultantEntity.ProfilePicture = uniqueFileName;
+                // consultantEntity.ProfilePicture = uniqueFileName;
+
+
+
+                //take out
+                consultantEntity.ProfilePicture = "test";
+                consultantEntity.ZoomId = "test";
+                consultantEntity.SkypeId = "test";
+                //end
 
                 _repoWrapper.Consultants.CreateConsultant(consultantEntity);
                 await _repoWrapper.SaveAsync();
+
+              
 
                 return Created($"/api/consultants/{consultantEntity.Id}", consultantEntity);
             }

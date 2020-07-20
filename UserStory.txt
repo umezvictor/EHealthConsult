@@ -59,6 +59,7 @@
      OTHERS FEATURES
 
      error logging
+     validation
 
      patient requests for appointment -- email is sent to patient
      patient pays ford consultation
@@ -66,7 +67,7 @@
      the patient and consultant reach agreement on  via email
      appointment is confirmed
      --payment can also take place at this point--optional
-     --appointment 
+     --appointment takes place via video call 
 
 
 

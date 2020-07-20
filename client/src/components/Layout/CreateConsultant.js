@@ -29,7 +29,7 @@ import {addConsultant} from '../../actions/consultantActions';
   // const data = new FormData();
    // data.append('ProfilePicture', ProfilePicture);
 
-   const data1 = {
+   const consultantData = {
       FirstName: FirstName,
       LastName: LastName,
       Email: Email,
@@ -41,7 +41,7 @@ import {addConsultant} from '../../actions/consultantActions';
    //console.log(consultantDetails);
    //book appointment
    //props.location.consultantId   - consultantId is received from Consultants.as props
-   props.addConsultant(data1);
+   props.addConsultant(consultantData);
   // console.log(props.appointment)
    
   }
@@ -78,7 +78,7 @@ import {addConsultant} from '../../actions/consultantActions';
  
   <Form.Group controlId="formBasicPassword">
     <Form.Label>Profession</Form.Label>
-    <Form.Control type="text" onChange={e => setProfession(e.target.value)} name="Profession" placeholder="DateOfBirth" />
+    <Form.Control type="text" onChange={e => setProfession(e.target.value)} name="Profession" placeholder="Profession" />
   </Form.Group>
 
   <Button variant="primary" type="submit">

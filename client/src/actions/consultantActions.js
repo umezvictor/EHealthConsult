@@ -28,9 +28,8 @@ export const getConsultants = () => async dispatch => {
 };
  
 //add consultant
-export const addConsultant = (data1) => dispatch => {
-    console.log(data1);
-    axios.post('http://localhost:5000/api/consultants', data1)
+export const addConsultant = (cosultantData) => dispatch => {
+    axios.post('http://localhost:5000/api/consultants', cosultantData)
        .then(res => 
                dispatch({
                    type: ADD_CONSULTANT,
@@ -41,5 +40,5 @@ export const addConsultant = (data1) => dispatch => {
            dispatch({
                type: GET_ERRORS
            })
-       });
-}
+       })
+};
